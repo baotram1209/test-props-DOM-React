@@ -225,29 +225,55 @@ const courses = [
     is_published: true,
   },
 ];
+//Nhìn function App, đây là cách có đặt tên lại props
+// function CourseItem({ title, description, image, studentsCount }) {
+//   return (
+//     <div className="course-item">
+//       <img src={image} alt={title} />
+//       <h2 className="course-title">{title}</h2>
+//       <p className="course-desc">{description}</p>
+//       <p className="course-count">{studentsCount}</p>
+//     </div>
+//   );
+// }
 
-function CourseItem({ title, description, image, studentsCount }) {
+// //App.js
+// function App() {
+//   return (
+//     <div id="wrapper">
+//       {courses.map((course) => (
+//         <CourseItem
+//           key={course.id}
+//           title={course.title}
+//           image={course.image_url}
+//           description={course.description}
+//           studentsCount={course.students_count}
+//         />
+//       ))}
+//     </div>
+//   );
+// }
+
+//Đây là cách ko đặt tên lại props, dùng luôn props trong data base để gọn code
+//data nằm trong props của CourseItem tức là nó nằm trong 1 object, muốn tiếp cận đến nó phải dùng destructuring
+//Note để hiểu: nếu ko dùng ({data}) thì dùng (props) xong ở dưới phải gọi props.data.title
+function CourseItem({ data }) {
   return (
     <div className="course-item">
-      <img src={image} alt={title} />
-      <h2 className="course-title">{title}</h2>
-      <p className="course-desc">{description}</p>
-      <p className="course-count">{studentsCount}</p>
+      <img src={data.image_url} alt={data.title} />
+      <h2 className="course-title">{data.title}</h2>
+      <p className="course-desc">{data.description}</p>
+      <p className="course-count">{data.students_count}</p>
     </div>
   );
 }
+
 //App.js
 function App() {
   return (
     <div id="wrapper">
       {courses.map((course) => (
-        <CourseItem
-          key={course.id}
-          title={course.title}
-          image={course.image_url}
-          description={course.description}
-          studentsCount={course.students_count}
-        />
+        <CourseItem key={course.id} data={course} />
       ))}
     </div>
   );
